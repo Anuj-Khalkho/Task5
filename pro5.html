@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optimized E-Commerce Site</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header, footer { background: #333; color: white; text-align: center; padding: 1em; }
+    nav a { margin: 0 10px; color: white; text-decoration: none; }
+    .search-bar { text-align: center; margin: 1em 0; }
+    .search-bar input { padding: 0.5em; width: 60%; max-width: 400px; border-radius: 5px; border: 1px solid #ccc; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1em; padding: 1em; }
+    .product { border: 1px solid #ccc; padding: 10px; border-radius: 5px; text-align: center; }
+    .product img { width: 100%; height: auto; border-radius: 5px; }
+    .btn { padding: 0.5em 1em; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ShopNow</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search for products...">
+  </div>
+
+  <main id="products" class="product-grid">
+    <!-- Products inserted dynamically -->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 ShopNow. All rights reserved.</p>
+  </footer>
+  <script>
+    const products = [
+      { id: 1, name: "Wireless Headphones", price: "$59.99", image: "https://i5.walmartimages.com/asr/faa20f66-5196-4e64-a118-56a148455f89_1.a74839fa25fa38724d1e690eaabfe73b.jpeg" },
+      { id: 2, name: "Smart Watch", price: "$89.99", image: "https://www.topteny.com/wp-content/uploads/2019/09/Verpro-Smartwatch-by-DoSmarter.jpg" },
+      { id: 3, name: "Bluetooth Speaker", price: "$39.99", image: "https://www.bhphotovideo.com/images/images2000x2000/jbl_jblxtremebluus_xtreme_portable_bluetooth_speaker_1182619.jpg" },
+      { id: 4, name: "Phone Stand", price: "$14.99", image: "https://images-na.ssl-images-amazon.com/images/I/61If5TV5RAL._SL1500_.jpg" }
+    ];
+
+    const container = document.querySelector(".product-grid");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderProducts(filter = "") {
+      container.innerHTML = "";
+      products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase())).forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img loading="lazy" src="${p.image}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>${p.price}</p>
+          <button class="btn">Add to Cart</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    searchInput.addEventListener("input", e => {
+      renderProducts(e.target.value);
+    });
+
+    renderProducts();
+  </script>
+</body>
+</html>
